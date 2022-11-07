@@ -30,17 +30,23 @@ remote: Compressing objects: 100% (66/66), done.
 remote: Total 1561 (delta 71), reused 149 (delta 65), pack-reused 1392
 Receiving objects: 100% (1561/1561), 257.77 KiB | 1.41 MiB/s, done.
 Resolving deltas: 100% (584/584), done.
-```
-Then try compiling the package using `user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
+```Then try compiling the package using `user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
 ` command : 
 ```bash 
 user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
 ```
-you need to transfer the file to the router's /tmp directory and install it with the opkg install command : 
+### Install
+at this point just copy the file from bin/packages/XXX/base/luci-app-xray_1.23.1-1_all.ipk to /tmp on your router. after that 
+
 ```bash
 root@OpenWrt:~# opkg update 
 root@OpenWrt:~# opkg install /tmp/luci-app-xray_1.23.1-1_all.ipk
 ```
+### Configure 
+Open Xray configuration under Luci->Services->Xray and make sure your config is similair : 
+![alt text](https://raw.githubusercontent.com/varathongue/luci-app-xray/master/1.jpeg "General")
+![alt text](https://raw.githubusercontent.com/varathongue/luci-app-xray/master/2.jpeg "DNS")
+![alt text](https://raw.githubusercontent.com/varathongue/luci-app-xray/master/3.jpeg "Transparent Proxy")
 
 
 ## Warnings
