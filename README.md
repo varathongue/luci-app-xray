@@ -30,7 +30,8 @@ remote: Compressing objects: 100% (66/66), done.
 remote: Total 1561 (delta 71), reused 149 (delta 65), pack-reused 1392
 Receiving objects: 100% (1561/1561), 257.77 KiB | 1.41 MiB/s, done.
 Resolving deltas: 100% (584/584), done.
-```Then try compiling the package using `user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
+```
+Then try compiling the package using `user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
 ` command : 
 ```bash 
 user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
