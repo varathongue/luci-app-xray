@@ -4,6 +4,45 @@
 
 Focus on making the most of Xray (HTTP/HTTPS/Socks/TProxy inbounds, multiple protocols support, DNS server, bridge (reverse proxy), even HTTPS proxy server for actual HTTP services) while keeping thin and elegant.
 
+## Setup
+* This document is assuming you're using the latest stable OpenWrt Version 22.03.2
+### Compile
+* Install the required dependencies for working with the [SDK](https://openwrt.org/docs/guide-developer/toolchain/using_the_sdk) from [here](https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem)
+* Find your Target Platform either in 
+   * Luci > Status > Overview 
+   * or in shell: 
+```bash
+root@OpenWrt:~# cat /etc/openwrt_release 
+DISTRIB_ID='OpenWrt'
+DISTRIB_RELEASE='22.03.2'
+DISTRIB_REVISION='r19803-9a599fee93'
+DISTRIB_TARGET='ath79/generic'`
+```
+now point to https://downloads.openwrt.org/releases/22.03.2/targets/ and download the corresponding SDK for your router. in our case the SDK URL for ath79/generic is https://downloads.openwrt.org/releases/22.03.2/targets/ath79/generic/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+download and extract the SDK then add the luci app to the SDK packages folder : 
+```bash
+user@pc:~$ cd openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64/
+user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ git clone https://github.com/yichya/luci-app-xray.git package/extra/luci-app-xray
+Cloning into 'package/extra/luci-app-xray'...
+remote: Enumerating objects: 1561, done.
+remote: Counting objects: 100% (169/169), done.
+remote: Compressing objects: 100% (66/66), done.
+remote: Total 1561 (delta 71), reused 149 (delta 65), pack-reused 1392
+Receiving objects: 100% (1561/1561), 257.77 KiB | 1.41 MiB/s, done.
+Resolving deltas: 100% (584/584), done.
+```
+Then try compiling the package using `user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
+` command : 
+```bash 
+user@pc:~/openwrt-sdk-22.03.2-ath79-generic_gcc-11.2.0_musl.Linux-x86_64$ make package/luci-app-xray/compile
+```
+you need to transfer the file to the router's /tmp directory and install it with the opkg install command : 
+```bash
+root@OpenWrt:~# opkg update 
+root@OpenWrt:~# opkg install /tmp/luci-app-xray_1.23.1-1_all.ipk
+```
+
+
 ## Warnings
 
 * Since OpenWrt 22.03 release, the recommended firewall implementation for this project is now **firewall4** with some caveats
